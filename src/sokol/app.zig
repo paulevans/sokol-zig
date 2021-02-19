@@ -190,17 +190,17 @@ pub const Event = extern struct {
     framebuffer_height: i32 = 0,
 };
 pub const Desc = extern struct {
-    init_cb: ?fn() callconv(.C) void = null,
-    frame_cb: ?fn() callconv(.C) void = null,
-    cleanup_cb: ?fn() callconv(.C) void = null,
-    event_cb: ?fn([*c]const Event) callconv(.C) void = null,
-    fail_cb: ?fn([*c]const u8) callconv(.C) void = null,
+    init_cb: ?fn () callconv(.C) void = null,
+    frame_cb: ?fn () callconv(.C) void = null,
+    cleanup_cb: ?fn () callconv(.C) void = null,
+    event_cb: ?fn ([*c]const Event) callconv(.C) void = null,
+    fail_cb: ?fn ([*c]const u8) callconv(.C) void = null,
     user_data: ?*c_void = null,
-    init_userdata_cb: ?fn(?*c_void) callconv(.C) void = null,
-    frame_userdata_cb: ?fn(?*c_void) callconv(.C) void = null,
-    cleanup_userdata_cb: ?fn(?*c_void) callconv(.C) void = null,
-    event_userdata_cb: ?fn([*c]const Event, ?*c_void) callconv(.C) void = null,
-    fail_userdata_cb: ?fn([*c]const u8, ?*c_void) callconv(.C) void = null,
+    init_userdata_cb: ?fn (?*c_void) callconv(.C) void = null,
+    frame_userdata_cb: ?fn (?*c_void) callconv(.C) void = null,
+    cleanup_userdata_cb: ?fn (?*c_void) callconv(.C) void = null,
+    event_userdata_cb: ?fn ([*c]const Event, ?*c_void) callconv(.C) void = null,
+    fail_userdata_cb: ?fn ([*c]const u8, ?*c_void) callconv(.C) void = null,
     width: i32 = 0,
     height: i32 = 0,
     sample_count: i32 = 0,
@@ -239,208 +239,208 @@ pub const Html5FetchResponse = extern struct {
 };
 pub const Html5FetchRequest = extern struct {
     dropped_file_index: i32 = 0,
-    callback: ?fn([*c]const Html5FetchResponse) callconv(.C) void = null,
+    callback: ?fn ([*c]const Html5FetchResponse) callconv(.C) void = null,
     buffer_ptr: ?*c_void = null,
     buffer_size: u32 = 0,
     user_data: ?*c_void = null,
 };
 pub extern fn sapp_isvalid() bool;
-pub inline fn isvalid() bool {
+pub fn isvalid() callconv(.Inline) bool {
     return sapp_isvalid();
 }
 pub extern fn sapp_width() i32;
-pub inline fn width() i32 {
+pub fn width() callconv(.Inline) i32 {
     return sapp_width();
 }
 pub extern fn sapp_widthf() f32;
-pub inline fn widthf() f32 {
+pub fn widthf() callconv(.Inline) f32 {
     return sapp_widthf();
 }
 pub extern fn sapp_height() i32;
-pub inline fn height() i32 {
+pub fn height() callconv(.Inline) i32 {
     return sapp_height();
 }
 pub extern fn sapp_heightf() f32;
-pub inline fn heightf() f32 {
+pub fn heightf() callconv(.Inline) f32 {
     return sapp_heightf();
 }
 pub extern fn sapp_color_format() i32;
-pub inline fn colorFormat() i32 {
+pub fn colorFormat() callconv(.Inline) i32 {
     return sapp_color_format();
 }
 pub extern fn sapp_depth_format() i32;
-pub inline fn depthFormat() i32 {
+pub fn depthFormat() callconv(.Inline) i32 {
     return sapp_depth_format();
 }
 pub extern fn sapp_sample_count() i32;
-pub inline fn sampleCount() i32 {
+pub fn sampleCount() callconv(.Inline) i32 {
     return sapp_sample_count();
 }
 pub extern fn sapp_high_dpi() bool;
-pub inline fn highDpi() bool {
+pub fn highDpi() callconv(.Inline) bool {
     return sapp_high_dpi();
 }
 pub extern fn sapp_dpi_scale() f32;
-pub inline fn dpiScale() f32 {
+pub fn dpiScale() callconv(.Inline) f32 {
     return sapp_dpi_scale();
 }
 pub extern fn sapp_show_keyboard(bool) void;
-pub inline fn showKeyboard(show: bool) void {
+pub fn showKeyboard(show: bool) callconv(.Inline) void {
     sapp_show_keyboard(show);
 }
 pub extern fn sapp_keyboard_shown() bool;
-pub inline fn keyboardShown() bool {
+pub fn keyboardShown() callconv(.Inline) bool {
     return sapp_keyboard_shown();
 }
 pub extern fn sapp_is_fullscreen() bool;
-pub inline fn isFullscreen() bool {
+pub fn isFullscreen() callconv(.Inline) bool {
     return sapp_is_fullscreen();
 }
 pub extern fn sapp_toggle_fullscreen() void;
-pub inline fn toggleFullscreen() void {
+pub fn toggleFullscreen() callconv(.Inline) void {
     sapp_toggle_fullscreen();
 }
 pub extern fn sapp_show_mouse(bool) void;
-pub inline fn showMouse(show: bool) void {
+pub fn showMouse(show: bool) callconv(.Inline) void {
     sapp_show_mouse(show);
 }
 pub extern fn sapp_mouse_shown() bool;
-pub inline fn mouseShown() bool {
+pub fn mouseShown() callconv(.Inline) bool {
     return sapp_mouse_shown();
 }
 pub extern fn sapp_lock_mouse(bool) void;
-pub inline fn lockMouse(lock: bool) void {
+pub fn lockMouse(lock: bool) callconv(.Inline) void {
     sapp_lock_mouse(lock);
 }
 pub extern fn sapp_mouse_locked() bool;
-pub inline fn mouseLocked() bool {
+pub fn mouseLocked() callconv(.Inline) bool {
     return sapp_mouse_locked();
 }
 pub extern fn sapp_userdata() ?*c_void;
-pub inline fn userdata() ?*c_void {
+pub fn userdata() callconv(.Inline) ?*c_void {
     return sapp_userdata();
 }
 pub extern fn sapp_query_desc() Desc;
-pub inline fn queryDesc() Desc {
+pub fn queryDesc() callconv(.Inline) Desc {
     return sapp_query_desc();
 }
 pub extern fn sapp_request_quit() void;
-pub inline fn requestQuit() void {
+pub fn requestQuit() callconv(.Inline) void {
     sapp_request_quit();
 }
 pub extern fn sapp_cancel_quit() void;
-pub inline fn cancelQuit() void {
+pub fn cancelQuit() callconv(.Inline) void {
     sapp_cancel_quit();
 }
 pub extern fn sapp_quit() void;
-pub inline fn quit() void {
+pub fn quit() callconv(.Inline) void {
     sapp_quit();
 }
 pub extern fn sapp_consume_event() void;
-pub inline fn consumeEvent() void {
+pub fn consumeEvent() callconv(.Inline) void {
     sapp_consume_event();
 }
 pub extern fn sapp_frame_count() u64;
-pub inline fn frameCount() u64 {
+pub fn frameCount() callconv(.Inline) u64 {
     return sapp_frame_count();
 }
 pub extern fn sapp_set_clipboard_string([*c]const u8) void;
-pub inline fn setClipboardString(str: [:0]const u8) void {
-    sapp_set_clipboard_string(@ptrCast([*c]const u8,str));
+pub fn setClipboardString(str: [:0]const u8) callconv(.Inline) void {
+    sapp_set_clipboard_string(@ptrCast([*c]const u8, str));
 }
 pub extern fn sapp_get_clipboard_string() [*c]const u8;
-pub inline fn getClipboardString() [:0]const u8 {
+pub fn getClipboardString() callconv(.Inline) [:0]const u8 {
     return sapp_get_clipboard_string();
 }
 pub extern fn sapp_set_window_title([*c]const u8) void;
-pub inline fn setWindowTitle(str: [:0]const u8) void {
-    sapp_set_window_title(@ptrCast([*c]const u8,str));
+pub fn setWindowTitle(str: [:0]const u8) callconv(.Inline) void {
+    sapp_set_window_title(@ptrCast([*c]const u8, str));
 }
 pub extern fn sapp_get_num_dropped_files() i32;
-pub inline fn getNumDroppedFiles() i32 {
+pub fn getNumDroppedFiles() callconv(.Inline) i32 {
     return sapp_get_num_dropped_files();
 }
 pub extern fn sapp_get_dropped_file_path(i32) [*c]const u8;
-pub inline fn getDroppedFilePath(index: i32) [:0]const u8 {
+pub fn getDroppedFilePath(index: i32) callconv(.Inline) [:0]const u8 {
     return sapp_get_dropped_file_path(index);
 }
 pub extern fn sapp_run([*c]const Desc) void;
-pub inline fn run(desc: Desc) void {
+pub fn run(desc: Desc) callconv(.Inline) void {
     sapp_run(&desc);
 }
 pub extern fn sapp_gles2() bool;
-pub inline fn gles2() bool {
+pub fn gles2() callconv(.Inline) bool {
     return sapp_gles2();
 }
 pub extern fn sapp_html5_ask_leave_site(bool) void;
-pub inline fn html5AskLeaveSite(ask: bool) void {
+pub fn html5AskLeaveSite(ask: bool) callconv(.Inline) void {
     sapp_html5_ask_leave_site(ask);
 }
 pub extern fn sapp_html5_get_dropped_file_size(i32) u32;
-pub inline fn html5GetDroppedFileSize(index: i32) u32 {
+pub fn html5GetDroppedFileSize(index: i32) callconv(.Inline) u32 {
     return sapp_html5_get_dropped_file_size(index);
 }
 pub extern fn sapp_html5_fetch_dropped_file([*c]const Html5FetchRequest) void;
-pub inline fn html5FetchDroppedFile(request: Html5FetchRequest) void {
+pub fn html5FetchDroppedFile(request: Html5FetchRequest) callconv(.Inline) void {
     sapp_html5_fetch_dropped_file(&request);
 }
 pub extern fn sapp_metal_get_device() ?*const c_void;
-pub inline fn metalGetDevice() ?*const c_void {
+pub fn metalGetDevice() callconv(.Inline) ?*const c_void {
     return sapp_metal_get_device();
 }
 pub extern fn sapp_metal_get_renderpass_descriptor() ?*const c_void;
-pub inline fn metalGetRenderpassDescriptor() ?*const c_void {
+pub fn metalGetRenderpassDescriptor() callconv(.Inline) ?*const c_void {
     return sapp_metal_get_renderpass_descriptor();
 }
 pub extern fn sapp_metal_get_drawable() ?*const c_void;
-pub inline fn metalGetDrawable() ?*const c_void {
+pub fn metalGetDrawable() callconv(.Inline) ?*const c_void {
     return sapp_metal_get_drawable();
 }
 pub extern fn sapp_macos_get_window() ?*const c_void;
-pub inline fn macosGetWindow() ?*const c_void {
+pub fn macosGetWindow() callconv(.Inline) ?*const c_void {
     return sapp_macos_get_window();
 }
 pub extern fn sapp_ios_get_window() ?*const c_void;
-pub inline fn iosGetWindow() ?*const c_void {
+pub fn iosGetWindow() callconv(.Inline) ?*const c_void {
     return sapp_ios_get_window();
 }
 pub extern fn sapp_d3d11_get_device() ?*const c_void;
-pub inline fn d3d11GetDevice() ?*const c_void {
+pub fn d3d11GetDevice() callconv(.Inline) ?*const c_void {
     return sapp_d3d11_get_device();
 }
 pub extern fn sapp_d3d11_get_device_context() ?*const c_void;
-pub inline fn d3d11GetDeviceContext() ?*const c_void {
+pub fn d3d11GetDeviceContext() callconv(.Inline) ?*const c_void {
     return sapp_d3d11_get_device_context();
 }
 pub extern fn sapp_d3d11_get_render_target_view() ?*const c_void;
-pub inline fn d3d11GetRenderTargetView() ?*const c_void {
+pub fn d3d11GetRenderTargetView() callconv(.Inline) ?*const c_void {
     return sapp_d3d11_get_render_target_view();
 }
 pub extern fn sapp_d3d11_get_depth_stencil_view() ?*const c_void;
-pub inline fn d3d11GetDepthStencilView() ?*const c_void {
+pub fn d3d11GetDepthStencilView() callconv(.Inline) ?*const c_void {
     return sapp_d3d11_get_depth_stencil_view();
 }
 pub extern fn sapp_win32_get_hwnd() ?*const c_void;
-pub inline fn win32GetHwnd() ?*const c_void {
+pub fn win32GetHwnd() callconv(.Inline) ?*const c_void {
     return sapp_win32_get_hwnd();
 }
 pub extern fn sapp_wgpu_get_device() ?*const c_void;
-pub inline fn wgpuGetDevice() ?*const c_void {
+pub fn wgpuGetDevice() callconv(.Inline) ?*const c_void {
     return sapp_wgpu_get_device();
 }
 pub extern fn sapp_wgpu_get_render_view() ?*const c_void;
-pub inline fn wgpuGetRenderView() ?*const c_void {
+pub fn wgpuGetRenderView() callconv(.Inline) ?*const c_void {
     return sapp_wgpu_get_render_view();
 }
 pub extern fn sapp_wgpu_get_resolve_view() ?*const c_void;
-pub inline fn wgpuGetResolveView() ?*const c_void {
+pub fn wgpuGetResolveView() callconv(.Inline) ?*const c_void {
     return sapp_wgpu_get_resolve_view();
 }
 pub extern fn sapp_wgpu_get_depth_stencil_view() ?*const c_void;
-pub inline fn wgpuGetDepthStencilView() ?*const c_void {
+pub fn wgpuGetDepthStencilView() callconv(.Inline) ?*const c_void {
     return sapp_wgpu_get_depth_stencil_view();
 }
 pub extern fn sapp_android_get_native_activity() ?*const c_void;
-pub inline fn androidGetNativeActivity() ?*const c_void {
+pub fn androidGetNativeActivity() callconv(.Inline) ?*const c_void {
     return sapp_android_get_native_activity();
 }

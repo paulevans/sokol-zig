@@ -3,16 +3,16 @@
 //
 //  Simple sokol.shape demo.
 //------------------------------------------------------------------------------
-const sokol  = @import("sokol");
-const sg     = sokol.gfx;
-const sapp   = sokol.app;
-const sgapp  = sokol.app_gfx_glue;
-const sdtx   = sokol.debugtext;
+const sokol = @import("sokol");
+const sg = sokol.gfx;
+const sapp = sokol.app;
+const sgapp = sokol.app_gfx_glue;
+const sdtx = sokol.debugtext;
 const sshape = sokol.shape;
-const vec3   = @import("math.zig").Vec3;
-const mat4   = @import("math.zig").Mat4;
+const vec3 = @import("math.zig").Vec3;
+const mat4 = @import("math.zig").Mat4;
 const assert = @import("std").debug.assert;
-const shd    = @import("shaders/shapes.glsl.zig");
+const shd = @import("shaders/shapes.glsl.zig");
 
 const Shape = struct {
     pos: vec3 = vec3.zero(),
@@ -25,22 +25,22 @@ const Shape = struct {
 //    pad: [12]u8 = undefined,
 //};
 
-const BOX        = 0;
-const PLANE      = 1;
-const SPHERE     = 2;
-const CYLINDER   = 3;
-const TORUS      = 4;
+const BOX = 0;
+const PLANE = 1;
+const SPHERE = 2;
+const CYLINDER = 3;
+const TORUS = 4;
 const NUM_SHAPES = 5;
 
 const state = struct {
     var pass_action: sg.PassAction = .{};
-    var pip:         sg.Pipeline = .{};
-    var bind:        sg.Bindings = .{};
-    var vs_params:   shd.VsParams = undefined;
-    var shapes:      [NUM_SHAPES]Shape = undefined;
+    var pip: sg.Pipeline = .{};
+    var bind: sg.Bindings = .{};
+    var vs_params: shd.VsParams = undefined;
+    var shapes: [NUM_SHAPES]Shape = undefined;
     var rx: f32 = 0.0;
     var ry: f32 = 0.0;
-    const view = mat4.lookat(.{.x=0.0, .y=1.5, .z=6.0}, vec3.zero(), vec3.up());
+    const view = mat4.lookat(.{ .x = 0.0, .y = 1.5, .z = 6.0 }, vec3.zero(), vec3.up());
 };
 
 export fn init() void {
@@ -51,7 +51,7 @@ export fn init() void {
     sdtx.setup(sdtx_desc);
 
     // pass-action for clearing to black
-    state.pass_action.colors[0] = .{ .action = .CLEAR, .value = .{ .r=0, .g=0, .b=0, .a=1 }};
+    state.pass_action.colors[0] = .{ .action = .CLEAR, .value = .{ .r = 0, .g = 0, .b = 0, .a = 1 } };
 
     // shader- and pipeline-object
     var pip_desc: sg.PipelineDesc = .{
@@ -65,24 +65,24 @@ export fn init() void {
     };
     pip_desc.layout.buffers[0] = sshape.bufferLayoutDesc();
     pip_desc.layout.attrs[shd.ATTR_vs_position] = sshape.positionAttrDesc();
-    pip_desc.layout.attrs[shd.ATTR_vs_normal]   = sshape.normalAttrDesc();
+    pip_desc.layout.attrs[shd.ATTR_vs_normal] = sshape.normalAttrDesc();
     pip_desc.layout.attrs[shd.ATTR_vs_texcoord] = sshape.texcoordAttrDesc();
-    pip_desc.layout.attrs[shd.ATTR_vs_color0]   = sshape.colorAttrDesc();
+    pip_desc.layout.attrs[shd.ATTR_vs_color0] = sshape.colorAttrDesc();
     state.pip = sg.makePipeline(pip_desc);
 
     // shape positions
-    state.shapes[BOX].pos       = .{ .x=-1, .y=1, .z=0 };
-    state.shapes[PLANE].pos     = .{ .x=1, .y=1, .z=0 };
-    state.shapes[SPHERE].pos    = .{ .x=-2, .y=-1, .z=0 };
-    state.shapes[CYLINDER].pos  = .{ .x=2, .y=-1, .z=0 };
-    state.shapes[TORUS].pos     = .{ .x=0, .y=-1, .z=0 };
+    state.shapes[BOX].pos = .{ .x = -1, .y = 1, .z = 0 };
+    state.shapes[PLANE].pos = .{ .x = 1, .y = 1, .z = 0 };
+    state.shapes[SPHERE].pos = .{ .x = -2, .y = -1, .z = 0 };
+    state.shapes[CYLINDER].pos = .{ .x = 2, .y = -1, .z = 0 };
+    state.shapes[TORUS].pos = .{ .x = 0, .y = -1, .z = 0 };
 
     // generate shape geometries
-    var vertices: [6*1024]sshape.Vertex = undefined;
-    var indices:  [16*1024]u16 = undefined;
+    var vertices: [6 * 1024]sshape.Vertex = undefined;
+    var indices: [16 * 1024]u16 = undefined;
     var buf: sshape.Buffer = .{
         .vertices = .{ .buffer = sshape.asRange(vertices) },
-        .indices  = .{ .buffer = sshape.asRange(indices) },
+        .indices = .{ .buffer = sshape.asRange(indices) },
     };
     buf = sshape.buildBox(buf, .{
         .width = 1.0,
@@ -139,15 +139,15 @@ export fn frame() void {
     sdtx.puts("  3: vertex colors\n");
 
     // view-project matrix
-    const proj = mat4.persp(60.0, sapp.widthf()/sapp.heightf(), 0.01, 10.0);
+    const proj = mat4.persp(60.0, sapp.widthf() / sapp.heightf(), 0.01, 10.0);
     const view_proj = mat4.mul(proj, state.view);
 
     // model-rotation matrix
     state.rx += 1.0;
     state.ry += 1.0;
-    const rxm = mat4.rotate(state.rx, .{ .x=1, .y=0, .z=0 });
-    const rym = mat4.rotate(state.ry, .{ .x=0, .y=1, .z=0 });
-    const rm  = mat4.mul(rxm, rym);
+    const rxm = mat4.rotate(state.rx, .{ .x = 1, .y = 0, .z = 0 });
+    const rym = mat4.rotate(state.ry, .{ .x = 0, .y = 1, .z = 0 });
+    const rm = mat4.mul(rxm, rym);
 
     // render shapes...
     sg.beginDefaultPass(state.pass_action, sapp.width(), sapp.height());
@@ -172,7 +172,7 @@ export fn input(event: ?*const sapp.Event) void {
             ._1 => 0.0,
             ._2 => 1.0,
             ._3 => 2.0,
-            else => state.vs_params.draw_mode
+            else => state.vs_params.draw_mode,
         };
     }
 }
@@ -191,6 +191,6 @@ pub fn main() void {
         .width = 800,
         .height = 600,
         .sample_count = 4,
-        .window_title = "shapes.zig"
+        .window_title = "shapes.zig",
     });
 }

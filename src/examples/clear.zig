@@ -3,17 +3,15 @@
 //
 //  Just clear the framebuffer with an animated color.
 //------------------------------------------------------------------------------
-const sg    = @import("sokol").gfx;
-const sapp  = @import("sokol").app;
+const sg = @import("sokol").gfx;
+const sapp = @import("sokol").app;
 const sgapp = @import("sokol").app_gfx_glue;
 
 var pass_action: sg.PassAction = .{};
 
 export fn init() void {
-    sg.setup(.{
-        .context = sgapp.context()
-    });
-    pass_action.colors[0] = .{ .action=.CLEAR, .value=.{ .r=1, .g=1, .b=0, .a=1 } };
+    sg.setup(.{ .context = sgapp.context() });
+    pass_action.colors[0] = .{ .action = .CLEAR, .value = .{ .r = 1, .g = 1, .b = 0, .a = 1 } };
 }
 
 export fn frame() void {
@@ -35,6 +33,6 @@ pub fn main() void {
         .cleanup_cb = cleanup,
         .width = 640,
         .height = 480,
-        .window_title = "clear.zig"
+        .window_title = "clear.zig",
     });
 }
